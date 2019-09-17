@@ -1,0 +1,19 @@
+{
+  "name": "phoenix_live_react",
+  "version": "0.1.0",
+  "description": "Hook to render live react components in Phoenix LiveView.",
+  "license": "MIT",
+  "main": "./priv/static/phoenix_live_react.js",
+  "author": "Robin Fidder",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fidr/phoenix_live_react.git"
+  },
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "package.json",
+    "priv/static/phoenix_live_react.js",
+    "assets/js/phoenix_live_react.js"
+  ]
+}
