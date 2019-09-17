@@ -1,4 +1,8 @@
 defmodule PhoenixLiveReact do
+  @moduledoc """
+  Render React.js components in Phoenix LiveView views.
+  """
+
   import Phoenix.HTML
   import Phoenix.HTML.Tag
 
