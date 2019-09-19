@@ -13,6 +13,19 @@ defmodule PhoenixLiveReact do
   <%= PhoenixLiveReact.live_react_component("Components.MyComponent", %{name: "Bob"}) %>
   ```
 
+  ## Events
+
+  To push events back to the liveview the `pushEvent` function from Phoenix LiveView is passed as a prop
+  the the component.
+
+  * pushEvent(event, payload) - method to push an event from the client to the LiveView server
+
+  ```
+  const { pushEvent } = this.props;
+  pushEvent("button_click");
+  pushEvent("myevent", {"var": "value"});
+  ```
+
   ## Parameters
 
     - name: String with the module name of the component

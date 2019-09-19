@@ -49,6 +49,19 @@ def render(assigns) do
 end
 ```
 
+### Events
+
+To push events back to the liveview the `pushEvent` function from Phoenix LiveView is passed as a prop
+the the component.
+
+* pushEvent(event, payload) - method to push an event from the client to the LiveView server
+
+```javascript
+const { pushEvent } = this.props;
+pushEvent("button_click");
+pushEvent("myevent", {"var": "value"});
+```
+
 ## How to add react to your phoenix app
 
 In your assets dir:
@@ -69,7 +82,7 @@ Create an `assets/.babelrc` file:
 }
 ```
 
-For NPM users, you might need the add the folloing to your `assets/webpack.config.js` file:
+For NPM users, you might need the add the following to your `assets/webpack.config.js` file:
 ```
 module.exports = (env, options) => ({
   // add:
