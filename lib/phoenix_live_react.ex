@@ -53,8 +53,6 @@ defmodule PhoenixLiveReact do
     ])
   end
 
-
-
   defp receiver_element(name, props, options) do
     attr = Keyword.get(options, :receiver, [])
     tag = Keyword.get(options, :receiver_tag, :div)

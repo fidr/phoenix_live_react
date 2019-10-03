@@ -1,18 +1,31 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-const render = function(el, target, componentClass, additionalProps) {
+const render = function(el, target, componentClass, additionalProps = {}) {
   const props = el.dataset.liveReactProps ? JSON.parse(el.dataset.liveReactProps) : {};
   const reactElement = React.createElement(componentClass, {...props, ...additionalProps});
   ReactDOM.render(reactElement, target);
 }
 
-export default {
+const initLiveReactElement = function(el, additionalProps) {
+  const target = el.nextElementSibling;
+  const componentClass = eval(el.dataset.liveReactClass);
+  render(el, target, componentClass, additionalProps);
+  return {target: target, componentClass: componentClass};
+}
+
+const initLiveReact = function() {
+  const elements = document.querySelectorAll('[data-live-react-class]')
+  Array.prototype.forEach.call(elements, el => {
+    initLiveReactElement(el)
+  });
+}
+
+const LiveReact = {
   mounted() {
     const { el } = this;
-    const target = el.nextElementSibling;
     const pushEvent = this.pushEvent.bind(this);
-    const componentClass = eval(el.dataset.liveReactClass);
+    const { target, componentClass } = initLiveReactElement(el, { pushEvent });
     render(el, target, componentClass, { pushEvent });
     Object.assign(this, { target, componentClass });
   },
@@ -28,3 +41,5 @@ export default {
     ReactDOM.unmountComponentAtNode(target);
   }
 }
+
+export { LiveReact as default, initLiveReact, initLiveReactElement };

@@ -29,12 +29,19 @@ window.Components = {
 Connect the hooks to your liveview (`app.js`):
 
 ```javascript
-import LiveReact from "phoenix_live_react"
+import LiveReact, { initLiveReact } from "phoenix_live_react"
 
-let hooks = { LiveReact };
+let hooks = { LiveReact }
 
 let liveSocket = new LiveSocket("/live", Socket, { hooks })
 liveSocket.connect()
+
+// Optionally render the React components on page load as
+// well to speed up the initial time to render.
+// The pushEvent prop will not be passed here.
+document.addEventListener("DOMContentLoaded", e => {
+  initLiveReact()
+})
 ```
 
 Use in your live view:
