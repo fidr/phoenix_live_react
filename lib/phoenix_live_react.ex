@@ -37,6 +37,9 @@ defmodule PhoenixLiveReact do
 
   You can also override the tag type with the `:container_tag` and `:receiver_tag` options
 
+  By default, LiveView uses `phx-` as the binding prefix.  You can override this with the
+  `:binding_prefix` option. 
+
   ```
   <%=
     PhoenixLiveReact.live_react_component("Components.MyComponent", %{},
@@ -56,6 +59,7 @@ defmodule PhoenixLiveReact do
   defp receiver_element(name, props, options) do
     attr = Keyword.get(options, :receiver, [])
     tag = Keyword.get(options, :receiver_tag, :div)
+    binding_prefix = Keyword.get(options, :binding_prefix, "phx-") 
 
     default_attr = [
       style: "display: none;",
@@ -63,7 +67,7 @@ defmodule PhoenixLiveReact do
         live_react_class: name,
         live_react_props: Jason.encode!(props)
       ],
-      "phx-hook": "LiveReact"
+      "#{binding_prefix}hook": "LiveReact"
     ]
 
     content_tag(tag, "", Keyword.merge(default_attr, attr))
@@ -72,7 +76,9 @@ defmodule PhoenixLiveReact do
   defp container_element(options) do
     attr = Keyword.get(options, :container, [])
     tag = Keyword.get(options, :container_tag, :div)
-    default_attr = ["phx-update": "ignore"]
+    binding_prefix = Keyword.get(options, :binding_prefix, "phx-") 
+
+    default_attr = ["#{binding_prefix}update": "ignore"]
 
     content_tag(tag, "", Keyword.merge(default_attr, attr))
   end
