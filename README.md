@@ -9,10 +9,29 @@ Add to your `mix.exs` and run `mix deps.get`:
 ```elixir
 def deps do
   [
-    {:phoenix_live_react, "~> 0.2.0"}
+    {:phoenix_live_react, "~> 0.2"}
   ]
 end
 ```
+
+Then add to your `assets/package.json` and run `npm i` or `yarn`:
+
+```
+{
+  ...
+  "dependencies": {
+    ...
+    "phoenix": "file:../deps/phoenix",
+    "phoenix_html": "file:../deps/phoenix_html",
+    "phoenix_live_view": "file:../deps/phoenix_live_view",
+    "phoenix_live_react": "file:../deps/phoenix_live_react", <-- ADD THIS!
+    ...
+  },
+  ...
+}
+```
+
+Note for umbrella projects the relative file paths should look like `"file:../../../deps/phoenix_live_react"` 
 
 ## Usage
 
