@@ -31,7 +31,7 @@ Then add to your `assets/package.json` and run `npm i` or `yarn`:
 }
 ```
 
-Note for umbrella projects the relative file paths should look like `"file:../../../deps/phoenix_live_react"` 
+Note for umbrella projects the relative file paths should look like `"file:../../../deps/phoenix_live_react"`
 
 ## Usage
 

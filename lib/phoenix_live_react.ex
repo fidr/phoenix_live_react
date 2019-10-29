@@ -38,7 +38,7 @@ defmodule PhoenixLiveReact do
   You can also override the tag type with the `:container_tag` and `:receiver_tag` options
 
   By default, LiveView uses `phx-` as the binding prefix.  You can override this with the
-  `:binding_prefix` option. 
+  `:binding_prefix` option.
 
   ```
   <%=
@@ -59,7 +59,7 @@ defmodule PhoenixLiveReact do
   defp receiver_element(name, props, options) do
     attr = Keyword.get(options, :receiver, [])
     tag = Keyword.get(options, :receiver_tag, :div)
-    binding_prefix = Keyword.get(options, :binding_prefix, "phx-") 
+    binding_prefix = Keyword.get(options, :binding_prefix, "phx-")
 
     default_attr = [
       style: "display: none;",
@@ -76,7 +76,7 @@ defmodule PhoenixLiveReact do
   defp container_element(options) do
     attr = Keyword.get(options, :container, [])
     tag = Keyword.get(options, :container_tag, :div)
-    binding_prefix = Keyword.get(options, :binding_prefix, "phx-") 
+    binding_prefix = Keyword.get(options, :binding_prefix, "phx-")
 
     default_attr = ["#{binding_prefix}update": "ignore"]
 
