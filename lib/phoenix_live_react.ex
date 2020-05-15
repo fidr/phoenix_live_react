@@ -31,7 +31,7 @@ defmodule PhoenixLiveReact do
   ## Parameters
 
     - name: String with the module name of the component
-    - props: Map with the props for the react component
+    - props: Map or keyword list with the props for the react component
     - options: Keyword list with render options
 
   It is possible to override both the receiver and the container div's attributes by passing
@@ -51,7 +51,13 @@ defmodule PhoenixLiveReact do
    %>
   ```
   """
-  def live_react_component(name, props \\ %{}, options \\ []) do
+  def live_react_component(name, props \\ %{}, options \\ [])
+
+  def live_react_component(name, props_list, options) when is_list(props_list) do
+    live_react_component(name, Map.new(props_list), options)
+  end
+
+  def live_react_component(name, props, options) do
     html_escape([
       receiver_element(name, props, options),
       container_element(options)
