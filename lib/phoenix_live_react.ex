@@ -15,15 +15,17 @@ defmodule PhoenixLiveReact do
 
   ## Events
 
-  To push events back to the liveview the `pushEvent` function from Phoenix LiveView is passed as a prop
-  the the component.
+  To push events back to the liveview the `pushEvent` and `pushEventTo` functions from
+  Phoenix LiveView are passed as props to the component.
 
-  * pushEvent(event, payload) - method to push an event from the client to the LiveView server
+  * pushEvent(event, payload) - push an event from the client to the LiveView
+  * pushEventTo(selector, event, payload) - push an event from the client to a specific LiveView component
 
   ```
   const { pushEvent } = this.props;
   pushEvent("button_click");
   pushEvent("myevent", {"var": "value"});
+  pushEventTo("#component-1", "do_something")
   ```
 
   ## Parameters

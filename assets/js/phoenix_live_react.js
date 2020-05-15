@@ -25,15 +25,17 @@ const LiveReact = {
   mounted() {
     const { el } = this;
     const pushEvent = this.pushEvent.bind(this);
+    const pushEventTo = this.pushEventTo && this.pushEventTo.bind(this);
     const { target, componentClass } = initLiveReactElement(el, { pushEvent });
-    render(el, target, componentClass, { pushEvent });
+    render(el, target, componentClass, { pushEvent, pushEventTo });
     Object.assign(this, { target, componentClass });
   },
 
   updated() {
     const { el, target, componentClass } = this;
     const pushEvent = this.pushEvent.bind(this);
-    render(el, target, componentClass, { pushEvent })
+    const pushEventTo = this.pushEventTo && this.pushEventTo.bind(this);
+    render(el, target, componentClass, { pushEvent, pushEventTo })
   },
 
   destroyed() {
