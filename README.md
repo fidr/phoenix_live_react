@@ -9,7 +9,7 @@ Add to your `mix.exs` and run `mix deps.get`:
 ```elixir
 def deps do
   [
-    {:phoenix_live_react, "~> 0.2"}
+    {:phoenix_live_react, "~> 0.3"}
   ]
 end
 ```
@@ -24,7 +24,7 @@ Then add to your `assets/package.json` and run `npm i` or `yarn`:
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "phoenix_live_view": "file:../deps/phoenix_live_view",
-    "phoenix_live_react": "file:../deps/phoenix_live_react", <-- ADD THIS!
+    "phoenix_live_react": "file:../deps/phoenix_live_react", # <-- ADD THIS!
     ...
   },
   ...
@@ -32,6 +32,23 @@ Then add to your `assets/package.json` and run `npm i` or `yarn`:
 ```
 
 Note for umbrella projects the relative file paths should look like `"file:../../../deps/phoenix_live_react"`
+
+Connect the hooks to your liveview (`app.js`):
+
+```javascript
+import LiveReact, { initLiveReact } from "phoenix_live_react"
+
+let hooks = { LiveReact }
+
+let liveSocket = new LiveSocket("/live", Socket, { hooks, params: { _csrf_token: csrfToken } })
+
+// Optionally render the React components on page load as
+// well to speed up the initial time to render.
+// The pushEvent prop will not be passed here.
+document.addEventListener("DOMContentLoaded", e => {
+  initLiveReact()
+})
+```
 
 ## Usage
 
@@ -45,47 +62,43 @@ window.Components = {
 }
 ```
 
-Connect the hooks to your liveview (`app.js`):
-
-```javascript
-import LiveReact, { initLiveReact } from "phoenix_live_react"
-
-let hooks = { LiveReact }
-
-let liveSocket = new LiveSocket("/live", Socket, { hooks })
-liveSocket.connect()
-
-// Optionally render the React components on page load as
-// well to speed up the initial time to render.
-// The pushEvent prop will not be passed here.
-document.addEventListener("DOMContentLoaded", e => {
-  initLiveReact()
-})
-```
-
 Use in your live view:
 
 ```elixir
-import PhoenixLiveReact, only: [live_react_component: 2]
+import PhoenixLiveReact
 
 def render(assigns) do
   ~L"""
-  <%= live_react_component("Components.MyComponent", %{name: @name}) %>
+  <%= live_react_component("Components.MyComponent", name: @name) %>
   """
+end
+```
+
+Instead of importing it in each view, you can also add it to your web module:
+
+```elixir
+defp view_helpers do
+  quote do
+    # ...
+    import PhoenixLiveReact
+    # ...
+  end
 end
 ```
 
 ### Events
 
-To push events back to the liveview the `pushEvent` function from Phoenix LiveView is passed as a prop
-the the component.
+To push events back to the liveview the `pushEvent` and `pushEventTo` functions from
+Phoenix LiveView are passed as props to the component.
 
-* pushEvent(event, payload) - method to push an event from the client to the LiveView server
+* pushEvent(event, payload) - push an event from the client to the LiveView
+* pushEventTo(selector, event, payload) - push an event from the client to a specific LiveView component
 
 ```javascript
 const { pushEvent } = this.props;
 pushEvent("button_click");
 pushEvent("myevent", {"var": "value"});
+pushEventTo("#component-1", "do_something")
 ```
 
 ## How to add react to your phoenix app
