@@ -10,7 +10,7 @@ defmodule PhoenixLiveReact do
   Render a react component in a live view.
 
   ```
-  <%= PhoenixLiveReact.live_react_component("Components.MyComponent", %{name: "Bob"}) %>
+  <%= PhoenixLiveReact.live_react_component("Components.MyComponent", %{name: "Bob"}, id: "my-component-1") %>
   ```
 
   ## Events
@@ -20,12 +20,15 @@ defmodule PhoenixLiveReact do
 
   * pushEvent(event, payload) - push an event from the client to the LiveView
   * pushEventTo(selector, event, payload) - push an event from the client to a specific LiveView component
+  * handleEvent(event, handler) - (phoenix_live_view >= 0.14) receive data directly through liveview `push_event`
 
   ```
-  const { pushEvent } = this.props;
+  const { pushEvent, pushEventTo, handleEvent } = this.props;
   pushEvent("button_click");
   pushEvent("myevent", {"var": "value"});
   pushEventTo("#component-1", "do_something")
+
+  handleEvent("some-event", (payload) => console.log(payload))
   ```
 
   ## Parameters
@@ -45,6 +48,7 @@ defmodule PhoenixLiveReact do
   ```
   <%=
     PhoenixLiveReact.live_react_component("Components.MyComponent", %{},
+      id: "my-component-1",
       container: [class: "my-component"],
       container_tag: :p
     )

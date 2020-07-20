@@ -44,7 +44,7 @@ let liveSocket = new LiveSocket("/live", Socket, { hooks, params: { _csrf_token:
 
 // Optionally render the React components on page load as
 // well to speed up the initial time to render.
-// The pushEvent prop will not be passed here.
+// The pushEvent, pushEventTo and handleEvent props will not be passed here.
 document.addEventListener("DOMContentLoaded", e => {
   initLiveReact()
 })
@@ -69,7 +69,7 @@ import PhoenixLiveReact
 
 def render(assigns) do
   ~L"""
-  <%= live_react_component("Components.MyComponent", name: @name) %>
+  <%= live_react_component("Components.MyComponent", [name: @name], id: "my-component-1") %>
   """
 end
 ```
@@ -88,17 +88,21 @@ end
 
 ### Events
 
-To push events back to the liveview the `pushEvent` and `pushEventTo` functions from
+To push events back to the liveview the `pushEvent`, `pushEventTo` and `handleEvent` functions from
 Phoenix LiveView are passed as props to the component.
 
 * pushEvent(event, payload) - push an event from the client to the LiveView
 * pushEventTo(selector, event, payload) - push an event from the client to a specific LiveView component
+* handleEvent(event, handler) - (phoenix_live_view >= 0.14) receive data directly through liveview `push_event`
 
 ```javascript
-const { pushEvent } = this.props;
+const { pushEvent, pushEventTo, handleEvent } = this.props;
+
 pushEvent("button_click");
 pushEvent("myevent", {"var": "value"});
 pushEventTo("#component-1", "do_something")
+
+handleEvent("some-event", (payload) => console.log(payload))
 ```
 
 ## How to add react to your phoenix app
