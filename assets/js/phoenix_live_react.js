@@ -1,10 +1,16 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-const render = function(el, target, componentClass, additionalProps = {}) {
-  const props = el.dataset.liveReactProps ? JSON.parse(el.dataset.liveReactProps) : {};
-  const reactElement = React.createElement(componentClass, {...props, ...additionalProps});
+const render = function(el, target, componentClass, additionalProps = {}, previousProps = {}) {
+  let props = el.dataset.liveReactProps ? JSON.parse(el.dataset.liveReactProps) : {};
+  if (el.dataset.liveReactMerge) {
+    props = {...previousProps, ...props, ...additionalProps}
+  } else {
+    props = {...props, ...additionalProps}
+  }
+  const reactElement = React.createElement(componentClass, props);
   ReactDOM.render(reactElement, target);
+  return props;
 }
 
 const initLiveReactElement = function(el, additionalProps) {
@@ -27,7 +33,8 @@ const LiveReact = {
     const pushEvent = this.pushEvent.bind(this);
     const pushEventTo = this.pushEventTo && this.pushEventTo.bind(this);
     const { target, componentClass } = initLiveReactElement(el, { pushEvent });
-    render(el, target, componentClass, { pushEvent, pushEventTo });
+    const props = render(el, target, componentClass, { pushEvent, pushEventTo });
+    if (el.dataset.liveReactMerge) this.props = props
     Object.assign(this, { target, componentClass });
   },
 
@@ -35,7 +42,9 @@ const LiveReact = {
     const { el, target, componentClass } = this;
     const pushEvent = this.pushEvent.bind(this);
     const pushEventTo = this.pushEventTo && this.pushEventTo.bind(this);
-    render(el, target, componentClass, { pushEvent, pushEventTo })
+    const previousProps = this.props;
+    const props = render(el, target, componentClass, { pushEvent, pushEventTo}, previousProps);
+    if (el.dataset.liveReactMerge) this.props = props
   },
 
   destroyed() {

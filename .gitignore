@@ -27,3 +27,5 @@ node_modules
 .elixir_ls/
 
 .DS_Store
+
+dummy/

@@ -73,7 +73,8 @@ defmodule PhoenixLiveReact do
       style: "display: none;",
       data: [
         live_react_class: name,
-        live_react_props: Jason.encode!(props)
+        live_react_props: Jason.encode!(props),
+        live_react_merge: options[:merge_props] == true
       ],
       "#{binding_prefix}hook": "LiveReact"
     ]
@@ -84,9 +85,10 @@ defmodule PhoenixLiveReact do
   defp container_element(options) do
     attr = Keyword.get(options, :container, [])
     tag = Keyword.get(options, :container_tag, :div)
+    id = Keyword.get(options, :id)
     binding_prefix = Keyword.get(options, :binding_prefix, "phx-")
 
-    default_attr = ["#{binding_prefix}update": "ignore"]
+    default_attr = ["#{binding_prefix}update": "ignore", id: id]
 
     content_tag(tag, "", Keyword.merge(default_attr, attr))
   end
