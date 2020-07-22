@@ -75,6 +75,7 @@ defmodule PhoenixLiveReact do
 
     default_attr = [
       style: "display: none;",
+      id: Keyword.get(options, :id),
       data: [
         live_react_class: name,
         live_react_props: Jason.encode!(props),
