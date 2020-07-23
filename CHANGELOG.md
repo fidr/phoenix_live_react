@@ -1,6 +1,6 @@
 # Changelog for PhoenixLiveReact
 
-## dev
+## v0.4.0
   * Add `id` option to set the id's on the `phx-hook` and `phx-update="ignore` containers
   * Add `merge_props` option to merge updated props with the last known props
   * Pass `handleEvent` as a prop
