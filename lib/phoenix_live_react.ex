@@ -90,8 +90,12 @@ defmodule PhoenixLiveReact do
   defp container_element(options) do
     attr = Keyword.get(options, :container, [])
     tag = Keyword.get(options, :container_tag, :div)
-    id = Keyword.get(options, :id)
     binding_prefix = Keyword.get(options, :binding_prefix, "phx-")
+    id =
+      case Keyword.get(options, :id) do
+        nil -> nil
+        id -> "#{id}-container"
+      end
 
     default_attr = ["#{binding_prefix}update": "ignore", id: id]
 
