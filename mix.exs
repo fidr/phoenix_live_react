@@ -23,7 +23,7 @@ defmodule PhoenixLiveReact.MixProject do
   defp deps do
     [
       {:ex_doc, "~> 0.21", only: :dev, runtime: false},
-      {:phoenix_html, "~> 2.11"},
+      {:phoenix_html, "~> 3.0"},
       {:jason, "~> 1.1"}
     ]
   end
