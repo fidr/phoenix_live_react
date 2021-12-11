@@ -51,18 +51,6 @@ document.addEventListener("DOMContentLoaded", e => {
 })
 ```
 
-## Usage
-
-Add your react components to the window scope (`app.js`):
-
-```javascript
-import { MyComponent } from "./components/MyComponent"
-
-window.Components = {
-  MyComponent
-}
-```
-
 Add the helper to your `MyAppWeb` file.
 
 ```elixir
@@ -75,14 +63,22 @@ defp view_helpers do
 end
 ```
 
+Add your react components to the window scope (`app.js`):
+
+```javascript
+import { MyComponent } from "./components/MyComponent"
+
+window.Components = {
+  MyComponent
+}
+```
+
+## Usage
+
 Use in your live view:
 
 ```elixir
-def render(assigns) do
-  ~H"""
-  <%= live_react_component("Components.MyComponent", [name: @name], id: "my-component-1") %>
-  """
-end
+<%= live_react_component("Components.MyComponent", [name: @name], id: "my-component-1") %>
 ```
 
 ### Events
