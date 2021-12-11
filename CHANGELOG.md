@@ -1,5 +1,8 @@
 # Changelog for PhoenixLiveReact
 
+## v0.4.1
+  * Allow `phoenix_html` v3 in deps
+
 ## v0.4.0
   * Add `id` option to set the id's on the `phx-hook` and `phx-update="ignore` containers
   * Add `merge_props` option to merge updated props with the last known props
