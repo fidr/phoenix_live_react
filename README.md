@@ -14,7 +14,8 @@ def deps do
 end
 ```
 
-Then add to your `assets/package.json` and run `npm i` or `yarn`:
+
+If you're using Phoenix 1.5 or older, then add to your `assets/package.json` and run `npm i` or `yarn`:
 
 ```
 {
@@ -55,26 +56,14 @@ document.addEventListener("DOMContentLoaded", e => {
 Add your react components to the window scope (`app.js`):
 
 ```javascript
-import { MyComponent } from "./components/my_components"
+import { MyComponent } from "./components/MyComponent"
 
 window.Components = {
   MyComponent
 }
 ```
 
-Use in your live view:
-
-```elixir
-import PhoenixLiveReact
-
-def render(assigns) do
-  ~L"""
-  <%= live_react_component("Components.MyComponent", [name: @name], id: "my-component-1") %>
-  """
-end
-```
-
-Instead of importing it in each view, you can also add it to your web module:
+Add the helper to your `MyAppWeb` file.
 
 ```elixir
 defp view_helpers do
@@ -83,6 +72,16 @@ defp view_helpers do
     import PhoenixLiveReact
     # ...
   end
+end
+```
+
+Use in your live view:
+
+```elixir
+def render(assigns) do
+  ~H"""
+  <%= live_react_component("Components.MyComponent", [name: @name], id: "my-component-1") %>
+  """
 end
 ```
 
@@ -105,7 +104,33 @@ pushEventTo("#component-1", "do_something")
 handleEvent("some-event", (payload) => console.log(payload))
 ```
 
-## How to add react to your phoenix app
+## How to add React to Phoenix 1.6 app
+
+### Add NPM
+
+In your assets dir:
+
+```bash
+npm init # press enter until its done
+```
+
+In your `config.exs`:
+
+Change the NODE_PATH to include node_modules for the :esbuild / :default entry.
+
+```elixir
+    env: %{"NODE_PATH" => Enum.join([Path.expand("../deps", __DIR__), Path.expand("../assets/node_modules", __DIR__)], ":")}
+```
+
+### Add react
+
+In your assets dir:
+
+```bash
+npm add react react-dom
+```
+
+## How to add react to Phoenix 1.5 or older 
 
 In your assets dir:
 
