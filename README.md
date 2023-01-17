@@ -86,8 +86,8 @@ Use in your live view:
 To push events back to the liveview the `pushEvent`, `pushEventTo` and `handleEvent` functions from
 Phoenix LiveView are passed as props to the component.
 
-* pushEvent(event, payload) - push an event from the client to the LiveView
-* pushEventTo(selector, event, payload) - push an event from the client to a specific LiveView component
+* pushEvent(event, payload, (reply, ref) => ...) - push an event from the client to the LiveView
+* pushEventTo(selector, event, payload, (reply, ref) => ...) - push an event from the client to a specific LiveView component
 * handleEvent(event, handler) - (phoenix_live_view >= 0.14) receive data directly through liveview `push_event`
 
 ```javascript
