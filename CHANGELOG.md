@@ -1,5 +1,8 @@
 # Changelog for PhoenixLiveReact
 
+## v0.4.2
+  * Removes usage of eval so it works with CSP. by @aglassman
+
 ## v0.4.1
   * Allow `phoenix_html` v3 in deps
 
