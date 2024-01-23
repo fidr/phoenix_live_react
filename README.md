@@ -51,16 +51,16 @@ document.addEventListener("DOMContentLoaded", e => {
 })
 ```
 
-Add the helper to your `MyAppWeb` file.
+Add the helper to your `MyAppWeb` file, `lib/MyAppWeb.ex`:
 
 ```elixir
-defp view_helpers do
-  quote do
-    # ...
-    import PhoenixLiveReact
-    # ...
+def live_view do
+    quote do
+      # ...
+      import PhoenixLiveReact
+      # ...
+    end
   end
-end
 ```
 
 Add your react components to the window scope (`app.js`):
