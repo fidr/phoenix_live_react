@@ -9,7 +9,7 @@ Add to your `mix.exs` and run `mix deps.get`:
 ```elixir
 def deps do
   [
-    {:phoenix_live_react, "~> 0.4"}
+    {:phoenix_live_react, "~> 0.5"}
   ]
 end
 ```
@@ -126,7 +126,7 @@ In your assets dir:
 npm add react react-dom
 ```
 
-## How to add react to Phoenix 1.5 or older 
+## How to add react to Phoenix 1.5 or older
 
 In your assets dir:
 
