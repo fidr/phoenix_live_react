@@ -4,7 +4,7 @@ defmodule PhoenixLiveReact do
   """
 
   import Phoenix.HTML
-  import Phoenix.HTML.Tag
+  use PhoenixHTMLHelpers
 
   @doc """
   Render a react component in a live view.
